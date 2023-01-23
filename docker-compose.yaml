@@ -1,0 +1,22 @@
+version: "3"
+
+volumes:
+  skillbox_db:
+
+services:
+  flask_application:
+    build: flask_app/
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+
+
+  db:
+    image: postgres:latest
+    volumes:
+      - skillbox_db:/app/flask_app/db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
